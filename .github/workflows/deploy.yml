@@ -42,7 +42,16 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      # 6. Build & Push Docker
+      # 5.5 Download cert
+      - name: Download RDS SSL Certificate
+        run: |
+          mkdir -p certs
+          wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem \
+            -O certs/global-bundle.pem
+
+          ls -l certs
+
+      # 6. Build & Push
       - name: Build and Push Docker Image
         run: |
           IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPO }}:latest
