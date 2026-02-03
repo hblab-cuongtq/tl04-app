@@ -71,4 +71,5 @@ jobs:
           aws ecs update-service \
             --cluster $ECS_CLUSTER \
             --service $ECS_SERVICE \
+            --task-definition tl04-ecs-dev-td:8
             --force-new-deployment
