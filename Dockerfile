@@ -1,5 +1,7 @@
 FROM eclipse-temurin:21-jre-alpine
 
+RUN apk add --no-cache curl
+
 WORKDIR /app
 
 COPY certs/global-bundle.pem /certs/global-bundle.pem
