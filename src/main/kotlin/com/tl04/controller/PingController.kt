@@ -1,29 +1,31 @@
 package com.tl04.controller
 
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.client.RestTemplate
+import org.springframework.web.client.RestClient
 
 @RestController
 @RequestMapping("/ping")
 class PingController(
-    private val restTemplate: RestTemplate,
-    @Value("SERVICE_URL")
+    private val restClient: RestClient,
+    @Value($$"${SERVICE_URL}")
     private val serviceBUrl: String
 ) {
     @GetMapping
     fun callServiceB(): ResponseEntity<String> {
         return try {
-            val response = restTemplate.getForEntity(
-                "$serviceBUrl/service",
-                String::class.java
-            )
-            ResponseEntity.ok("OK 👉 ${response.body}")
+            val response = restClient.get()
+                .uri("$serviceBUrl/service")
+                .retrieve()
+                .body(String::class.java)
+
+            ResponseEntity.ok("OK 👉 $response")
         } catch (e: Exception) {
-            ResponseEntity.status(500)
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("FAIL ❌ ${e.message}")
         }
     }
