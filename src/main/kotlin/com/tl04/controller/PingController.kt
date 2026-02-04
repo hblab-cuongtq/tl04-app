@@ -13,14 +13,11 @@ import org.springframework.web.client.RestClient
 class PingController(
     private val restClient: RestClient,
 ) {
-    @Value("\${SERVICE_URL}")
-    lateinit var serviceBUrl: String
-
     @GetMapping
     fun callServiceB(): ResponseEntity<String> {
         return try {
             val response = restClient.get()
-                .uri("http://service-b.tl04-dev.local:4000/service")
+                .uri("http://service-b.tl04-dev.local:4000/service-b/service")
                 .retrieve()
                 .body(String::class.java)
 
