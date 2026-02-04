@@ -19,7 +19,7 @@ import java.util.Optional
 @RequiredArgsConstructor
 class UserController(private val userService: UserService) {
     @PostMapping
-    fun create(@RequestBody user: UserDTO): User = userService.create(user)
+    fun create(@RequestBody user: UserDTO) = userService.create(user)
 
     @GetMapping
     fun findAll(): List<User> = userService.findAll()
@@ -31,7 +31,5 @@ class UserController(private val userService: UserService) {
     fun delete(id: Long) = userService.delete(id)
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: Long, @RequestBody userDTO: UserDTO): User {
-        return userService.update(id, userDTO)
-    }
+    fun update(@PathVariable id: Long, @RequestBody userDTO: UserDTO) = userService.update(id, userDTO)
 }
