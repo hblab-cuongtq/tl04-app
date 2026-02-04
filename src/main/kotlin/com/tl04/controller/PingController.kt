@@ -12,9 +12,10 @@ import org.springframework.web.client.RestClient
 @RequestMapping("/ping")
 class PingController(
     private val restClient: RestClient,
-    @Value($$"${SERVICE_URL}")
-    private val serviceBUrl: String
 ) {
+    @Value("\${SERVICE_URL}")
+    lateinit var serviceBUrl: String
+
     @GetMapping
     fun callServiceB(): ResponseEntity<String> {
         return try {
