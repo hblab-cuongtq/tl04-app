@@ -17,7 +17,7 @@ class PingController(
     fun callServiceB(): ResponseEntity<String> {
         return try {
             val response = restClient.get()
-                .uri("http://service-b.tl04-dev.local:4000/service-b/service")
+                .uri("http://tl04-alb-dev-705943374.ap-southeast-1.elb.amazonaws.com/service-b/service")
                 .retrieve()
                 .body(String::class.java)
 
