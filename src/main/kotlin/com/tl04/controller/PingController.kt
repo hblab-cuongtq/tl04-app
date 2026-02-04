@@ -20,7 +20,7 @@ class PingController(
     fun callServiceB(): ResponseEntity<String> {
         return try {
             val response = restClient.get()
-                .uri("$serviceBUrl/service")
+                .uri("http://service-b.tl04-dev.local:4000/service")
                 .retrieve()
                 .body(String::class.java)
 
